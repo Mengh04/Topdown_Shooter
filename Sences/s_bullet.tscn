@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwl0o1fk0myr7"]
+
+[ext_resource type="Texture2D" uid="uid://dh5ihrrkc8k6j" path="res://topdown_shooter_tutorial/topdown_shooter_assets/sBullet.png" id="1_372x8"]
+[ext_resource type="Script" path="res://Scripts/s_bullet.gd" id="1_a2y45"]
+[ext_resource type="AudioStream" uid="uid://bykk0yuedvm7f" path="res://topdown_shooter_tutorial/topdown_shooter_assets/aBullet.wav" id="3_aw3mt"]
+[ext_resource type="Script" path="res://Scripts/Trail.gd" id="4_k0gnb"]
+
+[sub_resource type="Curve" id="Curve_r5mfq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_qc2tu"]
+colors = PackedColorArray(0.764706, 0.0156863, 0.0196078, 1, 0.803922, 0.372549, 0.12549, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i114i"]
+radius = 6.0
+
+[node name="sBullet" type="CharacterBody2D"]
+position = Vector2(564, 612)
+rotation = -1.5708
+script = ExtResource("1_a2y45")
+speed = 2000.0
+metadata/_edit_group_ = true
+metadata/_edit_horizontal_guides_ = [6.0]
+
+[node name="Trail" type="Line2D" parent="."]
+points = PackedVector2Array(0, 5, 0, 10, 0, 15)
+width_curve = SubResource("Curve_r5mfq")
+default_color = Color(0.976471, 0.145098, 0.054902, 1)
+gradient = SubResource("Gradient_qc2tu")
+script = ExtResource("4_k0gnb")
+pointCount = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_372x8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_i114i")
+
+[node name="Destroy" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_aw3mt")
+autoplay = true
+
+[connection signal="timeout" from="Destroy" to="." method="_on_destroy_timeout"]

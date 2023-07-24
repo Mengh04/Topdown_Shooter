@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://c8ybcr7myg6ky"]
+
+[ext_resource type="Script" path="res://Scripts/s_enemy.gd" id="1_knm1h"]
+[ext_resource type="Texture2D" uid="uid://dygj452328ewt" path="res://topdown_shooter_tutorial/topdown_shooter_assets/sEnemyDead.png" id="2_f2fro"]
+[ext_resource type="Texture2D" uid="uid://evuru4hiwrmb" path="res://topdown_shooter_tutorial/topdown_shooter_assets/sEnemy_strip7.png" id="3_4a3q4"]
+[ext_resource type="AudioStream" uid="uid://bwycn4oly5llm" path="res://topdown_shooter_tutorial/topdown_shooter_assets/aDeath.wav" id="4_1xg80"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ymsm"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ldvh"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaq0f"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md3nt"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b18h6"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufquw"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(200, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iinwa"]
+atlas = ExtResource("3_4a3q4")
+region = Rect2(240, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8uq26"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f2fro")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ymsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ldvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xaq0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md3nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b18h6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufquw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iinwa")
+}],
+"loop": true,
+"name": &"move",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o117v"]
+radius = 12.0
+height = 28.0
+
+[node name="sEnemy" type="CharacterBody2D" groups=["enemies"]]
+position = Vector2(595, 345)
+script = ExtResource("1_knm1h")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8uq26")
+animation = &"move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_o117v")
+
+[node name="dead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1xg80")
+
+[node name="DeadAnimation" type="Timer" parent="."]
+one_shot = true

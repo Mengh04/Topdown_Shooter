@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmd8tdpbio2bx"]
+
+[ext_resource type="Texture2D" uid="uid://b8aufkhmfinb4" path="res://topdown_shooter_tutorial/topdown_shooter_assets/sGun.png" id="1_qrqny"]
+[ext_resource type="Script" path="res://Scripts/s_gun.gd" id="1_wvi7a"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="sGun" type="Node2D" parent="."]
+script = ExtResource("1_wvi7a")
+
+[node name="SGun" type="Sprite2D" parent="sGun"]
+texture = ExtResource("1_qrqny")
+offset = Vector2(20, 0)
+
+[node name="Fire_Point" type="Node2D" parent="sGun"]
+position = Vector2(35, 0)
